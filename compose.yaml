@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  q1-app:
+    # Replace with your actual image name
+    image: q1-app:latest
+    build:
+      # Path to q1-app's Dockerfile
+      context: ./services/q1/src/docker
+      dockerfile: Dockerfile
+    ports:
+      # Host:8080 → Container:8080
+      - "8080:8080"
+    environment:
+      # Ensure app listens on 8080 inside container
+      QUARKUS_HTTP_PORT: 8080
+
+  q2-app:
+    image: q2-app:latest
+    build:
+      context: ./services/q2/src/docker
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8080"
+    environment:
+      QUARKUS_HTTP_PORT: 8080  # Ensure app listens on 8080 inside container
