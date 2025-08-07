@@ -8,4 +8,7 @@ pluginManagement {
         id "${quarkusPluginId}" version "${quarkusPluginVersion}"
     }
 }
-rootProject.name='q1'
+
+rootProject.name = 'qq-services'
+include 'q1'
+include 'q2'

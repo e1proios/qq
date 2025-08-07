@@ -14,7 +14,7 @@ import quark.quark.types.PlayedGameDto;
 public class ReviewsService {
 
   @Inject
-  MongoClient mongo;
+  MongoClient mongoClient;
 
   public List<PlayedGame> all() {
     List<PlayedGame> reviews = new ArrayList<>();
@@ -41,7 +41,7 @@ public class ReviewsService {
   }
 
   private MongoCollection<PlayedGameDto> getAllReviews() {
-    return mongo
+    return mongoClient
       .getDatabase("game-reviews")
       .getCollection("reviews", PlayedGameDto.class);
   }

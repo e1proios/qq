@@ -1,0 +1,4 @@
+quarkus:
+  rest-client:
+    review-service:
+      url: "http://q1:8080/"

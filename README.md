@@ -1,1 +1,3 @@
-TODO: add later
+# TODO
+
+add instructions how to build and run

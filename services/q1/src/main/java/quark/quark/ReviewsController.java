@@ -4,17 +4,14 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import java.util.*;
-import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import org.jboss.resteasy.reactive.RestResponse;
 
-import quark.quark.rest.ReviewsInterface;
 import quark.quark.types.PlayedGame;
 
-@RegisterRestClient
 @Path("/api/reviews")
-public class ReviewsController implements ReviewsInterface<PlayedGame> {
+public class ReviewsController {
 
-  private Set<PlayedGame> loggedGames = Collections.synchronizedSet(new HashSet<>());
+  private final Set<PlayedGame> loggedGames = Collections.synchronizedSet(new HashSet<>());
 
   @Inject
   ReviewsService src;
@@ -49,7 +46,7 @@ public class ReviewsController implements ReviewsInterface<PlayedGame> {
       reviews = this.src.search(fieldName, search);
     }
 
-    if (reviews.size() > 0) {
+    if (!reviews.isEmpty()) {
       return RestResponse.ok(reviews);
     }
     return RestResponse.noContent();
