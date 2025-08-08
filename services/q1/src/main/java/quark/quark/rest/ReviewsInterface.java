@@ -7,6 +7,6 @@ import quark.quark.types.PlayedGame;
 
 public interface ReviewsInterface {
 
-  public RestResponse<List<PlayedGame>> gimmeAll();
-  public RestResponse<List<PlayedGame>> gimmeFound(String fieldName, String search);
+  RestResponse<List<PlayedGame>> all();
+  RestResponse<List<PlayedGame>> search(String field, String term);
 }

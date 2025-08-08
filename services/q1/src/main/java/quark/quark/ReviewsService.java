@@ -25,10 +25,10 @@ public class ReviewsService {
     return reviews;
   }
 
-  public List<PlayedGame> search(String field, String search) {
+  public List<PlayedGame> search(String field, String term) {
     Document query = new Document(
       field,
-      new Document("$regex", search)
+      new Document("$regex", term)
         .append("$options", "i")
     );
 

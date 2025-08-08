@@ -9,7 +9,7 @@ import org.jboss.resteasy.reactive.RestResponse;
 import quark.quark.types.PlayedGame;
 
 @Path("/api/reviews")
-public class ReviewsController {
+public final class ReviewsController {
 
   private final Set<PlayedGame> loggedGames = Collections.synchronizedSet(new HashSet<>());
 
@@ -19,7 +19,7 @@ public class ReviewsController {
   @GET
   @Path("/")
   @Produces(MediaType.APPLICATION_JSON)
-  public RestResponse<List<PlayedGame>> gimmeAll() {
+  public RestResponse<List<PlayedGame>> all() {
     var reviews = this.src.all();
 
     reviews.sort(
@@ -34,16 +34,17 @@ public class ReviewsController {
   @GET
   @Path("/search/")
   @Produces(MediaType.APPLICATION_JSON)
-  public RestResponse<List<PlayedGame>> gimmeFound(
-    @QueryParam("field") String fieldName,
-    @QueryParam("search") String search
+  public RestResponse<List<PlayedGame>> search(
+    @QueryParam("field") String field,
+    @QueryParam("term") String term
   ) {
     List<PlayedGame> reviews;
+    System.out.println("searching for: " + field + " " + term);
 
-    if (fieldName == null || search == null) {
+    if (field == null || term == null) {
       reviews = this.src.all();
     } else {
-      reviews = this.src.search(fieldName, search);
+      reviews = this.src.search(field, term);
     }
 
     if (!reviews.isEmpty()) {

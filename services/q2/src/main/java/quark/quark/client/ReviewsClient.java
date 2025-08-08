@@ -16,11 +16,11 @@ import java.util.List;
 public interface ReviewsClient extends ReviewsInterface {
 
     @GET
-    RestResponse<List<PlayedGame>> gimmeAll();
+    RestResponse<List<PlayedGame>> all();
 
     @GET
-    RestResponse<List<PlayedGame>> gimmeFound(
-        @QueryParam("fieldName") String fieldName,
-        @QueryParam("search") String search
+    RestResponse<List<PlayedGame>> search(
+        @QueryParam("field") String field,
+        @QueryParam("term") String term
     );
 }

@@ -3,6 +3,7 @@ package quark.quark;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import io.quarkus.runtime.QuarkusApplication;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.core.GenericType;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.resteasy.reactive.RestResponse;
 
@@ -20,9 +21,13 @@ public class EatResource implements QuarkusApplication {
 
     @Override
     public int run(String... args) {
-        try (RestResponse<List<PlayedGame>> response = this.reviewsClient.gimmeAll()) {
-            var data = response.readEntity(List.class);
-            data.forEach(System.out::println);
+        try (RestResponse<List<PlayedGame>> response = this.reviewsClient.all()) {
+            if (response.getStatus() != 200) {
+                System.err.println("Status code: " + response.getStatus());
+            } else {
+                List<PlayedGame> data = response.readEntity(new GenericType<>() {});
+                data.forEach(System.out::println);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
